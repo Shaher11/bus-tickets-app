@@ -36,7 +36,6 @@ Importent Commands:
 ```
 php artisan key:generate
 npm run dev
-
 ```
 Run the project:
 ```
