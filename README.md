@@ -1,6 +1,6 @@
-## About Parcels To Home System
+## About Bus Tickets Booking System
 
-This is a delivery web app. 
+This is a Bus Tickets Booking web app. 
 The technologies that were used to develop this app are "Laravel, Vue.js TailwindCSS and RestAPI,"
 
 ### Technologies
