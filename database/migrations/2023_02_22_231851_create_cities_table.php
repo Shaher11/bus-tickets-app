@@ -16,7 +16,7 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // city name 
-            $table->integer('is_active')->default(1);
+            $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
 
             // $table->foreignId('country_id')->constrained()->onDelete('cascade');  // for International trips
             $table->timestamps();

@@ -15,8 +15,8 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // users roles "Admin->1, Driver->2, Passenger->3"
-            $table->integer('is_active')->default(1);
+            $table->string('name');                     // users roles "Admin->1, Driver->2, Passenger->3"
+            $table->integer('is_active')->default(1);   // Soft Delete flag = Zero  
             $table->timestamps();
         });
     }

@@ -15,15 +15,25 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('depature_city_id')->constrained('cities')->onDelete('cascade');  // pickup point 
-            $table->foreignId('arrival_city_id')->constrained('cities')->onDelete('cascade');  // destinations 
-            $table->integer('distance'); //  90 KM (short trip) || 150 KM (long trip)
-            $table->integer('is_active')->default(1);
+            $table->unsignedBigInteger('bus_id')->nullable();
+            $table->foreign('bus_id')->references('id')->on('buses')->onDelete('set null');
+            $table->foreignId('depature_city_id')->constrained('cities')->onDelete('cascade');          // pickup point 
+            $table->foreignId('arrival_city_id')->constrained('cities')->onDelete('cascade');           // destination 
+            $table->double('longitude')->nullable();                                                    // To add Departure city from map
+            $table->double('latitude')->nullable();                                                     // To add Arrival city from map
+            $table->integer('distance');                                                                // 90 KM (short trip) || 150 KM (long trip)
+            $table->dateTime('trip_date');                                                              // travel date & time default(add current day)
+            $table->dateTime('estimated_arrival_date');                                                 // estimated arrival date & time
+            $table->double('fare_amount');                                                              // original ticket amount
+            $table->double('total_amount');                                                             // total ticket amount after taxes
+            $table->integer('status')->default(1);                                                      // trip differant statuses ex[upcoming, ticketing, in-progress, finished, canceled]
+            $table->integer('is_active')->default(1);                                                   // Soft Delete flag = Zero  
             $table->unique(['depature_city_id', 'arrival_city_id']);
+            $table->timestamps();
             // [
             //     'column_1' => 'required|unique:TableName,column_1,' . $this->id . ',id,colum_2,' . $this->column_2
             // ]
-            $table->timestamps();
+            
         });
     }
 

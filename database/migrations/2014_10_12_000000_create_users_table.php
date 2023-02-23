@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->timestamp('join_date')->nullable();
-            $table->integer('is_active')->default(1);
+            $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
             $table->rememberToken();
             $table->timestamps();
         });

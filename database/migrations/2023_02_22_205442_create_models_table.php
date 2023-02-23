@@ -18,7 +18,7 @@ class CreateModelsTable extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('name'); // company bus model name 
             $table->string('version'); 
-            $table->integer('is_active')->default(1);
+            $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
             $table->timestamps();
         });
     }

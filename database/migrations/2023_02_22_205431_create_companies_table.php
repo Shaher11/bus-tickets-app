@@ -16,7 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // company name like "Mercedes, Audi"
-            $table->integer('is_active')->default(1);
+            $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
             $table->timestamps();
         });
     }

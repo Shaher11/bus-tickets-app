@@ -18,7 +18,7 @@ class CreateBusesTable extends Migration
             $table->foreignId('model_id')->constrained()->onDelete('cascade');
             $table->string('name'); // company bus model name 
             $table->string('plate_number'); 
-            $table->integer('is_active')->default(1);
+            $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
             $table->timestamps();
         });
     }
