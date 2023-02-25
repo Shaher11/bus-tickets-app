@@ -17,4 +17,27 @@ class Reservation extends Model
 
     const STATUS_RESERVED  = 1;
     const STATUS_CANCELED = 2;
+
+    public static function decodeStatus($status)
+    {
+        if ($status == self::STATUS_RESERVED) {
+            return ["name" => "RESERVED"];
+        }elseif ($status == self::STATUS_CANCELED) {
+            return ["name" => "CANCELED"];
+        }else {
+            return '';
+        }
+    }
+    public function user(){
+        
+        return $this->belongsTo(User::class);
+    }
+    public function trip(){
+        
+        return $this->belongsTo(Trip::class);
+    }
+    public function bus_seat(){
+        
+        return $this->belongsTo(BusSeat::class);
+    }
 }

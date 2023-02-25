@@ -13,7 +13,7 @@ class StoreReservationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id'=> ['required', 'integer'],
+            'trip_id'=> ['required', 'integer'],
+            'bus_seat_id' => 'required|unique:reservations,bus_seat_id,' . $this->id . ',id,trip_id,' . $this->trip_id
+            // 'trip_id' => 'required|unique:reservations,trip_id,' . $this->id . ',id,bus_seat_id,' . $this->bus_seat_id
+            
         ];
     }
 }

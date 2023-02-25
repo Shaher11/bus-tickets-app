@@ -17,7 +17,7 @@ class CreateBusSeatTable extends Migration
             $table->id();
             $table->foreignId('bus_id')->constrained()->onDelete('cascade');
             $table->foreignId('seat_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

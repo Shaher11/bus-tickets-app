@@ -29,11 +29,7 @@ class CreateTripsTable extends Migration
             $table->integer('status')->default(1);                                                      // trip differant statuses ex[upcoming, ticketing, in-progress, finished, canceled]
             $table->integer('trip_type');                                                               // short or long  
             $table->integer('is_active')->default(1);                                                   // Soft Delete flag = Zero  
-            $table->timestamps();
-            // [
-            //     'column_1' => 'required|unique:TableName,column_1,' . $this->id . ',id,colum_2,' . $this->column_2
-            // ]
-            
+            $table->timestamps();     
         });
     }
 

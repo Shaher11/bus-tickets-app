@@ -2,81 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservationRequest;
+use App\Http\Resources\ReservationsResource;
+use App\Models\Reservation;
+use App\Models\Trip;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use HttpResponses;
     public function index()
     {
-        return 'reseev test';
+        return ReservationsResource::collection(
+            Reservation::get()
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(StoreReservationRequest $request)
     {
-        //
+        $data = $request->validated($request->all());
+        $trip = Trip::whereId($request->trip_id)->first();
+        
+        if(!$trip){return $this->error('', 'This trip not exists', 401);}
+
+        if($trip->status != Trip::STATUS_TICKETING){ return $this->error('', 'You can not reserve on this trip', 401); }
+
+        $reservation = Reservation::create([
+            'user_id'=> $request->user_id,
+            'trip_id'=> $request->trip_id,
+            'bus_seat_id'=> $request->bus_seat_id
+        ]);
+
+        return new ReservationsResource($reservation);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

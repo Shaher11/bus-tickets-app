@@ -13,4 +13,8 @@ class Bus extends Model
         
         return $this->belongsTo(CompanyModel::class,'company_model_id');
     }
+    public function bus_seat(){
+        
+        return $this->belongsToMany(Seat::class);
+    }
 }
