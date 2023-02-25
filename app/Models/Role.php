@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
+
+    const Admin = 1;  
+    const Driver = 2;  
+    const Passenger = 3; 
 }

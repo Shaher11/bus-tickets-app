@@ -13,7 +13,7 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        //
+        return 'reseev test';
     }
 
     /**

@@ -18,7 +18,8 @@ class CreateReservationsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');           // Can't be null
             $table->foreignId('trip_id')->constrained()->onDelete('cascade');          //  Can't be null
             $table->unsignedBigInteger('bus_seat_id')->nullable();
-            $table->foreign('bus_seat_id')->references('id')->on('bus_seat')->onDelete('set null');                         
+            $table->foreign('bus_seat_id')->references('id')->on('bus_seat')->onDelete('set null');   
+            $table->integer('status')->default(1);                                      //[reserved, canceled]
             $table->integer('is_active')->default(1);                                  // Soft Delete flag = Zero  
             $table->unique(['trip_id', 'bus_seat_id']);
             $table->timestamps();                                                       //date_of_booking

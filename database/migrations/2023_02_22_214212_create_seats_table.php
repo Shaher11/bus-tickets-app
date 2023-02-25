@@ -16,7 +16,7 @@ class CreateSeatsTable extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // A or B
-            $table->string('class'); // [economy, vip] 
+            $table->string('class')->nullable(); // [economy, vip] 
             $table->timestamps();
         });
     }

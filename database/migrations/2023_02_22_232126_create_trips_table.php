@@ -17,7 +17,7 @@ class CreateTripsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('bus_id')->nullable();
             $table->foreign('bus_id')->references('id')->on('buses')->onDelete('set null');
-            $table->foreignId('depature_city_id')->constrained('cities')->onDelete('cascade');          // pickup point 
+            $table->foreignId('departure_city_id')->constrained('cities')->onDelete('cascade');          // pickup point 
             $table->foreignId('arrival_city_id')->constrained('cities')->onDelete('cascade');           // destination 
             $table->double('longitude')->nullable();                                                    // To add Departure city from map
             $table->double('latitude')->nullable();                                                     // To add Arrival city from map
@@ -27,8 +27,8 @@ class CreateTripsTable extends Migration
             $table->double('fare_amount');                                                              // original ticket amount
             $table->double('total_amount');                                                             // total ticket amount after taxes
             $table->integer('status')->default(1);                                                      // trip differant statuses ex[upcoming, ticketing, in-progress, finished, canceled]
+            $table->integer('trip_type');                                                               // short or long  
             $table->integer('is_active')->default(1);                                                   // Soft Delete flag = Zero  
-            $table->unique(['depature_city_id', 'arrival_city_id']);
             $table->timestamps();
             // [
             //     'column_1' => 'required|unique:TableName,column_1,' . $this->id . ',id,colum_2,' . $this->column_2

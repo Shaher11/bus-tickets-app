@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelsTable extends Migration
+class CreateCompanyModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('models', function (Blueprint $table) {
+        Schema::create('company_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('name'); // company bus model name 
@@ -30,6 +30,6 @@ class CreateModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('models');
+        Schema::dropIfExists('company_models');
     }
 }

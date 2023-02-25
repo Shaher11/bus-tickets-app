@@ -15,8 +15,7 @@ class CreateBusesTable extends Migration
     {
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('model_id')->constrained()->onDelete('cascade');
-            $table->string('name'); // company bus model name 
+            $table->foreignId('company_model_id')->constrained('company_models')->onDelete('cascade');
             $table->string('plate_number'); 
             $table->integer('is_active')->default(1); // Soft Delete flag = Zero  
             $table->timestamps();
