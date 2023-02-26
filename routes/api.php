@@ -35,4 +35,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     // });
     Route::post('/logout',[AuthController::class, 'logout']);
     Route::resource('/reservations', ReservationsController::class);
+    Route::post('/reservations/payment/{reservation}', [ReservationsController::class,'payment']);
 });

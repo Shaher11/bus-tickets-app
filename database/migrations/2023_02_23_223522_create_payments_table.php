@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('reservation_id')->constrained()->onDelete('cascade');           // if reservation been canceled, should create new transaction with status = redux
             $table->double('amount_paid'); 
-            $table->integer('payment_status')->default(0);                                  // [paid, redux]
+            $table->integer('payment_status')->default(1);                                  // [paid, redux]
             $table->timestamps(); 
         });
     }
