@@ -43,6 +43,10 @@ php artisan serve
 ```
 
 
+## Database Schema
+
+![Screenshot](resources/images/Entity%20Diagram.png)
+
 ### Developed by:
 > Mohamed Ramadan -
 > moservices11@gmail.com
