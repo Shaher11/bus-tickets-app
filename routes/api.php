@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\test;
 use App\Http\Controllers\TripsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     // });
     Route::post('/logout',[AuthController::class, 'logout']);
     Route::resource('/reservations', ReservationsController::class);
+    Route::resource('/test', test::class);
     Route::post('/reservations/payment/{reservation}', [ReservationsController::class,'payment']);
 });

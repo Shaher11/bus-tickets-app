@@ -45,4 +45,15 @@ class Reservation extends Model
         
         return $this->hasOne(Payment::class);
     }
+
+    /**
+     * Soft delete 
+     */
+    public function delete(){
+
+        $this->is_active = Common::NOT_ACTIVE;
+        $this->save();
+
+        return true;
+    }
 }

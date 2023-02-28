@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 use App\Http\Resources\ReservationsResource;
 use App\Models\BusSeat;
 use App\Models\Payment;
@@ -31,7 +32,7 @@ class ReservationsController extends Controller
         $reservationsCount =  Reservation::whereTripId($trip->id)->get()->count();
 
         if($busSeatsCount < $reservationsCount){ return $this->error('', 'Sorry, all seats been reserved', 401); }
-        if(!$trip){return $this->error('', 'This trip not exists', 401);}
+        if(!$trip){return $this->error('', 'This trip not exists', 404);}
         if($trip->status != Trip::STATUS_TICKETING){ return $this->error('', 'You can not reserve on this trip', 401); }
         if(!count($request->reservations)){ return $this->error('', 'Please complite the form', 401); }
 
@@ -58,6 +59,36 @@ class ReservationsController extends Controller
 
         return new ReservationsResource($reservation);
     }
+    
+    public function show(Reservation $reservation)
+    {
+        return $this->isNotAuthorized($reservation) ? $this->isNotAuthorized($reservation) : new ReservationsResource($reservation);
+    }
+
+    public function update(UpdateReservationRequest $request, Reservation $reservation)
+    {
+        if($reservation->user_id != Auth::user()->id){ return $this->error('', 'Sorry, Unauthorized operation', 403); }
+
+        $reservation->update($request->all());
+
+        return new ReservationsResource($reservation);
+    }
+
+    public function destroy(Reservation $reservation)
+    {
+        // Soft delete -> check Reservation model
+        return $this->isNotAuthorized($reservation) ? $this->isNotAuthorized($reservation) : $reservation->delete();
+    }
+
+    public function isNotAuthorized($reservation)
+    {
+        if($reservation->user_id !== Auth::user()->id){ 
+            return $this->error('', 'Sorry, Unauthorized operation', 403); 
+        }
+        
+    }
+
+
 
     // publice static function payment($reservation)
     // {
@@ -68,18 +99,5 @@ class ReservationsController extends Controller
         
     // }
 
-    public function show($id)
-    {
-        //
-    }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 }

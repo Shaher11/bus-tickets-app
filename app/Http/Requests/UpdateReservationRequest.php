@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReservationRequest extends FormRequest
+class UpdateReservationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,9 @@ class StoreReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trip_id'=> ['required', 'array','integer'],
-            'passenger_email'=> ['required', 'array','email','max:255'],
-            'bus_seat_id' => 'required|unique:reservations,bus_seat_id,' . $this->id . ',id,trip_id,' . $this->trip_id            
+            'trip_id'=> ['required','integer'],
+            'passenger_email'=> ['required','email','max:255'],
+            'bus_seat_id' => 'required|unique:reservations,bus_seat_id,' . $this->id . ',id,trip_id,' . $this->trip_id 
         ];
     }
 }

@@ -35,7 +35,7 @@ class ReservationsResource extends JsonResource
                 // ],
                 'reservation_info'=> [
                     'seat_number' => $this->bus_seat->seat->name,
-                    'total_paid_amount' => $this->payment->amount_paid .' EGP',
+                    'total_paid_amount' => ($this->payment)? $this->payment->amount_paid.' EGP' : '',
                 ],
                 'trip_info'=> [
                     'id' => (string)$this->trip->id,
