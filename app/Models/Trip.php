@@ -71,4 +71,12 @@ class Trip extends Model
         
         return $this->belongsTo(City::class, 'arrival_city_id');
     }
+
+    public function delete(){
+
+        $this->is_active = Common::NOT_ACTIVE;
+        $this->save();
+
+        return true;
+    }
 }

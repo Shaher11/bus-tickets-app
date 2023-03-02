@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTripRequest;
 use App\Http\Resources\TripsResource;
+use App\Models\Role;
 use App\Models\Trip;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TripsController extends Controller
 {
     use HttpResponses;
     public function index()
     {
-        return TripsResource::collection(
-            Trip::get()
-        );
+        return $this->isNotAdmin() ? $this->isNotAdmin() : TripsResource::collection(Trip::get());
     }
 
     public function store(StoreTripRequest $request)
     {
+        if(Auth::user()->role_id !== Role::Admin ){ return $this->error('', 'Sorry, Unauthorized operation', 403); }
+
         $data = $request->validated($request->all());
 
         if($request->distance >= 100 ){
@@ -43,13 +45,19 @@ class TripsController extends Controller
         return new TripsResource($trip);
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Trip $trip)
     {
-        //
+        if(Auth::user()->role_id !== Role::Admin ){ return $this->error('', 'Sorry, Unauthorized operation', 403); }
+
+        // Soft delete -> check Reservation model
+        return  $trip->delete();
     }
 
-    public function destroy($id)
+    public function isNotAdmin()
     {
-        //
+        if(Auth::user()->role_id !== Role::Admin ){ 
+            return $this->error('', 'Sorry, Unauthorized operation', 403); 
+        }
+        
     }
 }
